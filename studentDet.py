@@ -12,12 +12,6 @@ root.configure(bg="black")
 # root.resizable(False, False)
 formDetails = {}
 
-# global variables
-
-# meanValue = "0"
-# maxScoreValue = "0"
-# minScoreValue = "0"
-
 # Create a frame to hold the widgets
 frame = tk.Frame(root, bg="black")
 frame.pack()
@@ -139,18 +133,39 @@ def enterDetails():
     if formDictionary["firstname"] == "":
         print("First Name is required")
         showError(True, "First Name is required")
+    elif formDictionary["firstname"].isnumeric():
+        print("First Name cannot be a number")
+        showError(True, "First Name cannot be a number")
+
     elif formDictionary["lastname"] == "":
         print("Last Name is required")
         showError(True, "Last Name is required")
+
+    elif formDictionary["lastname"].isnumeric():
+        print("Last name cannot be a number")
+        showError(True, "Last name cannot be a number")
+
     elif formDictionary["matric-no"] == "":
         print("Matric Number is required")
         showError(True, "Matric Number is required")
+
+    elif formDictionary["matric-no"].isnumeric() == False:
+        print("Matric Number should be a number")
+        showError(True, "Matric Number should be a number")
+        
     elif formDictionary["Subject"] == "":
         print("Subject is required")
         showError(True, "Subject is required")
+    elif formDictionary["Subject"].isnumeric() == True: 
+        print("Subject must be a text")
+        showError(True, "Subject must be a text")
+    
     elif formDictionary["Score"] == "":
         print("Subject Score is required")
         showError(True, "Subject Score is required")
+    elif formDictionary["Score"].isnumeric() == False:
+        print("Subject Score should be number")
+        showError(True, "Subject Score should be a number")
     else:
         showError(False, "")
         print(formDictionary)
@@ -285,7 +300,7 @@ def displayAnalysis():
         tk.Label(analysisFrame, text=lowestStudentresultDataFrame.iloc[i, 2], font=(
             "Times New Roman", 15, "bold"), bg="black", fg="white").grid(row=tablerow, column=1, padx=10, pady=10)
         tablerow += 1
-    
+
     scoreRowLabelLowest = tk.Label(analysisFrame, text="Score", font=(
         "Times New Roman", 15, "bold"), bg="black", fg="white")
     scoreRowLabelLowest.grid(row=tablerowReset + 2, column=2, padx=10, pady=10)
