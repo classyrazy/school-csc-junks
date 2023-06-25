@@ -1,4 +1,5 @@
 import time
+from sympy import symbols, diff
 
 def bisection(f, a, b, tol=1e-6, max_iter=100):
     start_time = time.time()
@@ -65,14 +66,14 @@ def taylor_series(f, df, x0, y0, h, n):
     
     return y, comp_time
 
-def picard(f, x0, y0, h, n):
+def picard(f, x0, y0, n):
     start_time = time.time()
     
-    x = x0
     y = y0
+
     for _ in range(n):
-        y = y0 + h * f(x, y)
-        x += h
+        y = f(x0, y)
+        x0 += 1/n 
     
     end_time = time.time()
     comp_time = end_time - start_time
@@ -107,7 +108,7 @@ def example_function_derivative(x):
     return 3*x**2 - 5
 
 def example_ode(x, y):
-    return x + y
+    return x - y ** 2
 
 # User interaction with the 
 print("Approximate Methods and ODE Solvers")
@@ -166,9 +167,8 @@ elif choice == 2:
     elif method == 2:
         x0 = float(input("Enter the initial value of 'x0': "))
         y0 = float(input("Enter the initial value of 'y0': "))
-        h = float(input("Enter the step size 'h': "))
         n = int(input("Enter the number of iterations 'n': "))
-        solution, comp_time = picard(example_ode, x0, y0, h, n)
+        solution, comp_time = picard(example_ode, x0, y0, n)
         print("Solution:", solution)
         print("Computation Time:", comp_time, "seconds")
     elif method == 3:
