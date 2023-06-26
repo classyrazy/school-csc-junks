@@ -3,7 +3,7 @@ Name: Adewale Abdulrazaq Olabiyi
 Matric number: 190806014
 Department: Mathematics
 '''
-
+import random
 def bisection_method(a, b, c, n, r, s):
     low = min(r, s)
     high = max(r, s)
@@ -60,35 +60,12 @@ def secant_method(a, b, c, n, r, s):
         x1 = x_next
 
 
-def main():
-    print("Select a method:")
-    print("1. Bisection")
-    print("2. Newton-Raphson")
-    print("3. Secant")
-    
-    method = int(input("Enter the method number: "))
-    if method not in [1, 2, 3]:
-        print("Invalid method selected.")
-        return
-    equation = input("Equation in the form ax^n + bx + c = 0[i.e - values for a b c n respectively]: ")
-    coefficients = [float(x) for x in equation.split()]
-    
-    if method == 1:
-        initial_solutions = [float(x) for x in input("Initial Solutions (r s): ").split()]
-        solution = bisection_method(coefficients[0], coefficients[1], coefficients[2], coefficients[3], initial_solutions[0], initial_solutions[1])
-    elif method == 2:
-        initial_solution = float(input("Initial Solution (r): "))
-        solution = newton_raphson_method(coefficients[0], coefficients[1], coefficients[2], coefficients[3], initial_solution)
-    elif method == 3:
-        initial_solutions = [float(x) for x in input("Initial Solutions (r s): ").split()]
-        solution = secant_method(coefficients[0], coefficients[1], coefficients[2], coefficients[3], initial_solutions[0], initial_solutions[1])
+def main(lst):
+    if len(lst) == 6:
+        return f"The approximate root of {lst[0]}x^{lst[3]} + {lst[1]}x + {lst[2]} = 0 is {random.choice([secant_method(lst[0],lst[1],lst[2],lst[3],lst[4],lst[5]), bisection_method(lst[0],lst[1],lst[2],lst[3],lst[4],lst[5])])} "
+    elif len(lst) == 5:
+        return f"The approximate root of {lst[0]}x^{lst[3]} + {lst[1]}x + {lst[2]} = 0 is {newton_raphson_method(lst[0],lst[1],lst[2],lst[3],lst[4])}"
     else:
-        print("Invalid method selected.")
-        return
-    
-    if solution is not None:
-        print(f"The approximate root of {coefficients[0]}x^{coefficients[3]} + {coefficients[1]}x + {coefficients[2]} = 0 is :", solution)
-    else:
-        print("No solution found.")
-
-main()
+        return "The number of arguments must be a length of 5 to 6 coefficeints"
+         
+print(main([1, 0, -3, 2, 1, 2]))
